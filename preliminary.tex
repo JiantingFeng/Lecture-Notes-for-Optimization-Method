@@ -1,0 +1,162 @@
+\section{多元微积分}
+\subsection{多元函数的Taylor展开}
+\begin{equation}
+	f(\bm{x}_0+\bm{p}) = f(\bm{x}_0)+\nabla f(\bm{x_0})^T\bm{p} + o(||\bm{p}||)
+\end{equation}
+\begin{equation}
+	f(\bm{x}_0+\bm{p}) = f(\bm{x}_0)+\nabla f(\bm{x_0})^T\bm{p} + \frac{1}{2}\bm{p}^Tf(\bm{x}_0)\bm{p} + o(||\bm{p}||)^2
+\end{equation}
+若$f(\bm{x}) = \bm{b}^T\bm{x}$，则有
+\begin{equation}
+	\nabla f(\bm{x}) = \bm{b},\quad \nabla^2 f(\bm{x}) = 0_{n\times n}
+\end{equation}
+若$f(\bm{x}) = \frac{1}{2}\bm{x}^TQ\bm{x}$，且$Q$为对称方阵，则有
+\begin{equation}
+	\nabla f(\bm{x}) = Q\bm{b},\quad \nabla^2 f(\bm{x}) = Q
+\end{equation}
+\section{线性空间中的范数}
+\begin{definition}
+	在$n$维线性空间$\mathbb{R}^n$中，定义
+	\begin{equation*}
+			||\cdot||:\mathbb{R}^n \rightarrow \mathbb{R}
+	\end{equation*}
+	满足下述三条公理：
+	\begin{enumerate}
+		\item （正定性）$\forall \bm{x}\in \mathbb{R}^n$，有$||\bm{x}||\geq 0$，且$||\bm{x}||= 0$当且仅当$\bm{x} = \bm{0}$；
+		\item $\forall \bm{x}\in \mathbb{R}^n$及$\alpha \in \mathbb{R}$，有$||\alpha \bm{x}|| = |\alpha|||\bm{x}||$；
+		\item $\forall \bm{x}, \bm{y}\in \mathbb{R}^n$，有$||\bm{x}+\bm{y}||\leq ||\bm{x}||+ ||\bm{y}||$
+	\end{enumerate}
+	则称$||\cdot||$为$\mathbb{R}^n$上的一个范数（norm）。
+\end{definition}
+\begin{example}
+	常用的范数有如下几个：
+	\begin{enumerate}
+		\item $2$-范数：$||\bm{x}||_2 = (\sum\limits_{i=1}^n x_i^2)^{\frac{1}{2}}$
+		\item $\infty$-范数：$||\bm{x}||_\infty = \max\limits_{1\leq i\leq n}|x_i|$
+		\item $1$-范数：$||\bm{x}||_\infty = \sum\limits_{i=1}^n|x_i|$
+	\end{enumerate}
+\end{example}
+\section{凸集与凸函数}
+\begin{definition}
+	设$D\subseteq \mathbb{R}^n$，若对于任意的$\lambda\in [0, 1]$，都有
+	\begin{equation*}
+		\lambda x + (1-\lambda )y \in D,
+	\end{equation*}
+	则称$D$为\textbf{凸集}。
+	称$\lambda x + (1-\lambda )y$为凸组合。
+\end{definition}
+\begin{note}
+	用数学归纳法，容易证明对于任意有限个元素的凸组合仍满足上述性质。
+\end{note}
+\subsection{几个重要且常见的凸集}
+\subsubsection{超平面与半空间}
+对于任意非零向量$a$，我们称形如$\{x\mid a^Tx = b\}$的集合为\textbf{超平面}，形如$\{x\mid a^Tx \leq b\}$的集合为\textbf{半空间}。
+\subsubsection{球、椭球、锥}
+\begin{definition}
+	设$||\cdot||$为一个范数，定义
+	\begin{equation*}
+		B(x_c, r) = \{x\mid ||x-x_c||\leq r\}
+	\end{equation*}
+	为半径为$r$，中心为$x_c$的\textbf{球}。
+\end{definition}
+\begin{definition}
+	形如
+	\begin{equation*}
+		\{x\mid (x-x_c)^TP^{-1}(x-x_c)\leq 1\}
+	\end{equation*}
+	中心为$x_c$的\textbf{椭球}，其中$P\in\mathcal{S}_{++}^n$（即$P$对称正定）。
+\end{definition}
+\begin{definition}
+	称集合
+	\begin{equation*}
+		\{(x, t)\mid ||x||\leq t\}
+	\end{equation*}
+	为\textbf{范数锥}，Euclid范数锥也称\textbf{二次锥}。
+\end{definition}
+更多与锥（cone）相关的内容，请参考\ref{cone}
+
+\begin{definition}[凸函数]
+	设$f(\bm(x))$为适当函数，如果$f$的定义域$D$为凸集，且满足
+	\begin{equation*}
+		f(\lambda x + (1-\lambda )y)\leq \lambda f(x) + (1-\lambda) f(y)
+	\end{equation*}
+	对于所有$x,y\in D$与$0\leq \lambda \leq 1$都成立，则称$f$是\textbf{凸函数}。
+\end{definition}
+\begin{definition}[严格凸函数]
+	设$f(\bm(x))$为适当函数，如果$f$的定义域$D$为凸集，且满足
+	\begin{equation*}
+		f(\lambda x + (1-\lambda )y)< \lambda f(x) + (1-\lambda) f(y)
+	\end{equation*}
+	对于所有$x,y\in D$与$0< \lambda < 1$都成立，则称$f$是\textbf{严格凸函数}。
+\end{definition}
+\begin{theorem}[凸函数的判定定理]
+	$f(x)$是定义在凸集$D\subset \mathbb{R}^n$上的（严格）凸函数，则对于任意$x, y\in D$，令
+	\begin{equation*}
+		\phi(t) = f(tx + (1-t)y), \quad t\in [0, 1]
+	\end{equation*}
+	$\phi(t)$为$[0, 1]$上的（严格）凸函数。
+\end{theorem}
+\begin{note}
+	事实上，上面定理的说的是，凸函数的一个最基本的判定方式是：先将其限制在任意直线上，然后判断对应的一维函数是否是凸的。
+\end{note}
+对于可微函数，我们判断其是否为凸函数还可以根据它的导数信息来判断
+\begin{theorem}[一阶条件]
+	对于定义在凸集$D\subset \mathbb{R}^n$上的可微函数$f$，$f$是凸函数当且仅当下式成立
+	\begin{equation*}
+		f(y)\geq f(x) +\nabla f(x)^T(y-x)\quad \forall x, y\in D.
+	\end{equation*}
+\end{theorem}
+\begin{theorem}[二阶条件]
+	对于定义在凸集$D\subset \mathbb{R}^n$上的二阶连续可微函数$f$，$f$是凸函数当且仅当下式成立
+	\begin{equation*}
+		\nabla^2 f(x)\succeq 0\quad \forall x\in D.
+	\end{equation*}
+	如果$\nabla^2 f(x)\succ 0\quad \forall x\in D$，则$f$是严格凸函数。
+\end{theorem}
+\begin{definition}[水平集]
+设函数$f(x)$定义在$D$上，
+	\begin{equation*}
+		D_\alpha := \{x\mid x\in D, f(x)\leq \alpha\}
+	\end{equation*}
+	称为$f(x)$的\textbf{水平集}。
+\end{definition}
+由水平集的定义及凸函数的判定性质，立即有
+\begin{theorem}
+	凸集上的凸函数的水平集为凸集，即
+	设凸函数$f(x)$定义在凸集$D\subset \mathbb{R}^n$上，则
+	\begin{equation*}
+		D_\alpha = \{x\mid x\in D, f(x)\leq \alpha\}
+	\end{equation*}
+	为凸集。
+\end{theorem}
+\section{凸规划}
+设凸函数$f(x)$定义在凸集$D\subset \mathbb{R}^n$上，则下列规划问题
+\begin{equation*}
+	\begin{split}
+		&\min f(x)\\
+		&s.t.\begin{cases}
+			g_i(x)\geq 0,\quad i = 1,2,\cdots, m\\
+			h_j(x) = 0, j=1,2,\cdots, l
+		\end{cases}
+	\end{split}
+\end{equation*}
+若$g_i(x)$为凸函数，$h_j(x)$为线性函数，则上述问题称为\textbf{凸规划}。
+\section{收敛速度}
+\begin{definition}
+	设序列$\{\bm{x}_k\}$收敛于$\bm{x^*}$，且有
+	\begin{equation*}
+		\lim\limits_{k\to \infty}\frac{||\bm{x}_{k+1} - \bm{x}^*||}{||\bm{x}_{k} - \bm{x}^*||} = \beta
+	\end{equation*}
+	\begin{enumerate}
+		\item 若$\beta = 1$，则称该序列\textbf{次线性收敛}
+		\item 若$0<\beta<1$，则称该序列\textbf{线性收敛}，$\beta$被称为\textbf{收敛比}
+		\item 若$\beta = 0$，则称该序列\textbf{超线性收敛}
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	设序列$\{\bm{x}_k\}$收敛于$\bm{x^*}$，若对于某个实数$p\geq 1$，有
+	\begin{equation*}
+		\lim\limits_{k\to \infty}\frac{||\bm{x}_{k+1} - \bm{x}^*||}{||\bm{x}_{k} - \bm{x}^*||^p} = \beta,\quad 0<\beta < +\infty
+	\end{equation*}
+	则称该序列为$p$阶收敛的.
+\end{definition}
