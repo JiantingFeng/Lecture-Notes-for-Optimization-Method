@@ -1,0 +1,51 @@
+\documentclass[11pt,titlepage]{book}
+\usepackage{Preamble}
+
+\begin{document}
+
+\begin{titlepage}
+    \newgeometry{margin=3cm}
+	\centering
+%    \includegraphics[width=0.8\linewidth]{BIT.png}\\[0.25cm] 	% University Logo
+    \textsc{\LARGE Jianting's Lecture Review Notes}\\ \vspace{\fill}
+    \textbf{\textsc{\fontsize{20}{20}\selectfont 最优化方法\\ Optimization Methods}}\\ \vspace{\fill}
+    \medskip
+    \textsc{2020 Fall}\\
+    \medskip
+    \textsc{Instructor : 李庆娜}\\
+    \medskip
+    \textsc{Textbook : 最优化方法}\\
+    \bigskip
+	\textsc{Review for Optimization Method}\\[0.4cm]
+	\rule{\linewidth}{0.2 mm} \\[0.5 cm]
+	Jianting Feng\\
+	\today\\
+	BEIJING INSTITUTE OF TECHNOLOGY
+\end{titlepage}
+\restoregeometry
+
+\frontmatter 
+\chapter{前言}
+\input{pre.tex}
+\newpage
+\tableofcontents
+\newpage
+\thispagestyle{numberonly}
+\mainmatter 
+\chapter{预备知识 Preliminary}
+\input{preliminary}
+\chapter{线性规划 Linear Programming}
+
+\chapter{无约束优化问题 Unconstrained Optimization}
+\input{unconstrained.tex}
+\chapter{约束优化问题 Constrained Optimization}
+\input{constrained.tex}
+\chapter{补充内容一：锥及Karush–Kuhn–Tucker条件}\label{cone}
+\input{cone.tex}
+\chapter{补充内容二：信赖域算法}
+\input{trustregion.tex}
+\clearpage
+\pagestyle{numberonly}
+\printbibliography
+
+\end{document}

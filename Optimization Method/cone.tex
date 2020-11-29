@@ -1,0 +1,229 @@
+ \section{凸锥（Convex Cone）}
+\begin{definition}[凸锥]
+	令$K\subset \mathcal{X}$为一凸集，如果$K$对正数数乘封闭，即$\forall x\in K$与$\forall \lambda > 0$，我们有$\lambda x\in K$，我们称$K$为锥.
+\end{definition}
+下面是关于线性代数中的锥的表述，摘自Wikipedia，注意与凸锥对比（凸组合要属于内部）
+\begin{note}
+	凸锥为一个在有序域上的线性子空间，关于正数的线性组合封闭。
+\end{note}
+如下是一些常见的凸锥的例子
+\begin{example}
+	范数锥（norm cone）
+	\begin{equation*}
+		\{ (x, r)\in \mathbb{R}^{d+1}\mid ||x||\leq r\}
+	\end{equation*}
+\end{example}
+\begin{example}
+	半正定对称锥（symmetrical positive semi-define cone）
+	\begin{equation*}
+		\mathcal{S}_+^n = \{A\in \mathcal{S}\mid A\succeq 0\}
+	\end{equation*}
+\end{example}
+\begin{example}
+	条件半正定对称锥（conditional symmetrical positive semi-define cone）
+	\begin{equation*}
+		K_+^n = \{X\in\mathcal{S}^n\mid \omega^T X\omega \geq 0, \omega \in \{e\}^\perp\}
+	\end{equation*}
+	其中$e = (1,1,\cdots, 1)^T\in \mathbb{R}^n$
+\end{example}
+\begin{example}
+	非负卦限锥（Non-negative quadrant cone）
+	\begin{equation*}
+		\mathbb{R}_+^n = \{x\in\mathbb{R}^n\mid x_i\geq 0, i = 1,\cdots, n\}
+	\end{equation*}
+\end{example}
+\begin{example}
+	正卦限锥（Positive quadrant cone）
+	\begin{equation*}
+		\{x\in\mathbb{R}^n\mid x_i > 0, i = 1,\cdots, n\}
+	\end{equation*}
+\end{example}
+\begin{example}
+	半平面（half space）.
+	对于任意非零的$b\in \mathbb{R}^n$与$\beta \in \mathbb{R}$，下面的集合被称为闭半空间
+	\begin{equation*}
+		\{x\in\mathbb{R}^n\mid \langle x, b\rangle\leq \beta\},\quad \{x\in\mathbb{R}^n\mid \langle x, b\rangle\geq \beta\}
+	\end{equation*}
+	下面的集合被称为k开半空间
+	\begin{equation*}
+		\{x\in\mathbb{R}^n\mid \langle x, b\rangle< \beta\},\quad \{x\in\mathbb{R}^n\mid \langle x, b\rangle> \beta\}
+	\end{equation*}
+\end{example}
+\subsection{法锥（Normal Cone）}
+\begin{definition}
+	向量$x^*$被称为在$a\in C$点垂直于凸集$C$，如果$x^*$不与$C$中任意以$a$为短点的线段形成锐角，即
+	\begin{equation*}
+		\langle x-a, x^*\rangle \leq 0,\quad \forall x\in C
+	\end{equation*}
+\end{definition}
+由上面的垂直于$C$的向量$x^*$组成的集合被称为法锥
+\begin{definition}
+	\begin{equation*}
+		N_C(a) \triangleq\begin{cases}
+			\{d\mid \langle d, z-a\rangle\leq 0, \forall z \in C\},\quad a\in C\\
+			\emptyset,\quad \text{其他}
+		\end{cases}
+	\end{equation*}
+\end{definition}
+\subsection{极锥（Polar Cone）}
+\begin{definition}
+	凸锥$C\subset \mathbb{R}^n$的极锥$C^\circ$定义为
+	\begin{equation*}
+		C^\circ \triangleq \{y\in \mathbb{R}^n\mid \langle y, x\rangle \leq 0, \forall x\in C\}.
+	\end{equation*}
+\end{definition}
+\begin{note}
+	即与$C$中所有元素都不构成锐角（构成直角或钝角）。
+\end{note}
+\begin{example}
+	\begin{equation*}
+		K = \{(x, y)\mid y = 2x, x\geq 0\}\subset \mathbb{R}^2
+	\end{equation*}
+	\begin{equation*}
+		K\circ = \{(x, y)\mid y \leq -\frac{x}{2}\}
+	\end{equation*}
+\end{example}
+\subsection{对偶锥（Dual Cone）}
+\begin{definition}
+	锥$C$的对偶锥$C^*$定义为
+	\begin{equation*}
+		C^* \triangleq \{y\in\mathbb{R}^n\mid \langle y, x\rangle \geq 0,\forall x\in C\}
+	\end{equation*}
+	若$C^* = C$，则称$C$自对偶（self-dual）.
+\end{definition}
+\begin{note}
+	与极锥的定义正好相反，对偶锥中的元素和原来锥中的元素不构成钝角（构成直角或锐角）。
+\end{note}
+\begin{note}
+	容易发现极锥与对偶锥的关系
+	\begin{equation*}
+		C^* = -C^\circ
+	\end{equation*}
+	这里的相等是指集合相等.
+\end{note}
+\section{Lagrange函数与KKT条件}
+\subsection{Lagrange函数}
+考虑下面的约束优化问题
+\begin{equation*}\label{}
+	\begin{split}
+		&\min\limits_{x\in\mathcal{X}} f(x)\\
+		&s.t. G(x)\in \mathcal{K}.
+	\end{split}
+\end{equation*}
+其中$f:\mathcal{X}\rightarrow \mathbb{R}, f\in C^1(\mathcal{X})$.$G:\mathcal{X}\rightarrow \mathcal{Y}, G\in C^1(\mathcal{X})$.并且$\mathcal{K}\subset \mathcal{Y}$是一个凸锥.则该问题的Lagrange函数为
+\begin{equation*}
+	\mathcal{L}(x,\mu) = f(x) - \langle \mu, G(x)\rangle
+\end{equation*}
+下面是对KKT条件的化简
+\begin{equation*}
+	\nabla_x\mathcal{L}(\bar{x}, \bar{\mu}) = 0
+\end{equation*}
+注意到$\bar{x}$是最优解，于是$\nabla_x f(\bar{x}) = 0$，故有
+\begin{equation*}
+	0 = \langle \bar\mu, G(\bar{x})\rangle
+\end{equation*}
+于是，由法锥的定义，有
+\begin{equation*}
+	-\bar{\mu} \in N_{\mathcal{K}}(G(\bar{x}))
+\end{equation*}
+即
+\begin{equation*}
+	G(\bar{x}) \in \mathcal{K}, \langle -\bar{\mu}, d-G(\bar{x})\rangle \leq 0, \forall d\in \mathcal{K}
+\end{equation*}
+注意到$\mathcal{K}$为凸锥， $0\in \mathcal K$且$2G(\bar{x})\in\mathcal K$.取$d = 2G(\bar{x})$，得到$\langle -\bar{\mu},  G(\bar{x})\rangle\leq 0$，$\langle \bar{\mu}, G(\bar{x})\rangle \geq 0$，再取$d = 0$，得到$\langle \bar{\mu}, G(\bar{x})\rangle \leq 0$，于是
+\begin{equation*}
+	\langle \bar{\mu}, G(\bar{x})\rangle = 0
+\end{equation*}
+由对偶锥的定义，$\bar{\mu}\in\mathcal{K}^*$.
+\begin{note}
+	上面的推导过程实际上是一般的锥优化问题的对偶参数（Lagrange乘子）所满足的条件.
+\end{note}
+下面定义了对偶问题的具体形式
+\begin{definition}
+	Lagrange对偶函数$g(\mu) = \inf\limits_{x\in\mathcal{X}}\mathcal{L}(x, \mu)$.故有
+	\begin{equation*}
+		\sup\limits_{\mu \in \mathcal{K}^*}\inf\limits_{x\in\mathcal{X}}\mathcal{L}(x, \mu) = \sup\limits_{\mu \in \mathcal{K}^*} g(\mu)
+	\end{equation*}
+	将原问题转化为了相应的对偶问题
+\end{definition}
+下面是求解对偶问题的具体例子
+\begin{example}
+	考虑线性规划问题
+	\begin{equation*}
+		\begin{split}
+			\min\limits_{x\in\mathbb{R}^n}&\langle c, x\rangle\\
+			s.t. & Ax = b,\\
+			& x\geq 0,
+		\end{split}
+	\end{equation*}
+	其中$A\in\mathbb{R}^{m\times n}$，$b\in\mathbb{R}^m$是给定的.
+	\begin{equation*}
+		G(x) = \begin{bmatrix}
+			Ax-b\\
+			x
+		\end{bmatrix},\quad
+		\mathcal{K} = \{0\}^m \times \mathbb{R}_+^n
+	\end{equation*}
+	注意到
+	\begin{equation*}
+		\mathcal{K}^* = \mathbb{R}^m\times \mathbb{R}^n
+	\end{equation*}
+	令Lagrange乘子
+	\begin{equation*}
+		\mu = \begin{bmatrix}
+			\lambda\\
+			v
+		\end{bmatrix}\in \mathbb{R}^{m+n},\lambda\in \mathbb{R}^m, v\in \mathbb{R}^n.
+	\end{equation*}
+	于是有
+	\begin{equation*}
+		\mu \in \mathcal{K}^*\iff \lambda\in\mathbb{R}^m, v\in \mathbb{R}^n
+	\end{equation*}
+	\begin{equation*}
+		G(x)\in \mathcal{K}\iff Ax-b=0, x\geq 0.
+	\end{equation*}
+	该问题的Lagrange函数为
+	\begin{equation*}
+		\begin{split}
+			\mathcal{L}(x, \mu) &= \langle c, x\rangle - \langle G(x),\mu\rangle \\
+			& = \langle c, x\rangle - \langle \begin{bmatrix}
+				Ax-b,\\
+				x
+			\end{bmatrix},\begin{bmatrix}
+				\lambda \\
+				 v
+			\end{bmatrix} \rangle\\
+				& = \langle c, x\rangle - \langle Ax-b, \lambda\rangle - \langle x, v\rangle\\
+				& = \langle x, c- A^T\lambda -v\rangle + \langle b, \lambda \rangle
+		\end{split}
+	\end{equation*}
+	根据Lagrange对偶函数的定义，我们有
+	\begin{equation*}
+		\begin{split}
+			g(\mu) &= \inf\limits_{x\in\mathbb{R}^n} \mathcal{L}(x,\mu)\\
+			& = \inf\limits_{x\in\mathbb{R}^n} \langle x, c- A^T\lambda -v\rangle + \langle b, \lambda \rangle\\
+			& = \langle b, \lambda \rangle + \begin{cases}
+				0, c- A^T\lambda -v = 0\\
+				-\infty, \text{其他}
+			\end{cases}
+		\end{split}
+	\end{equation*}
+	由于我们要求解的是线性规划问题的可行解，只需要考虑$c- A^T\lambda -v = 0$的情况即可
+	\begin{equation*}
+		\begin{split}
+			\sup\limits_{\mu\in \mathcal{K}^*} \inf\limits_{x\in\mathbb{R}^n} \mathcal{L}(x, \mu) &= \sup\limits_{\mu\in \mathcal{K}^*} g(\mu)\\
+			&= \langle b, \lambda\rangle,\text{ and } c-A^T\lambda - v = 0.
+		\end{split}
+	\end{equation*}
+	整理即得LP的对偶问题
+	\begin{equation*}
+		\begin{split}
+			\max\limits_{\lambda\in\mathbb{R}^m, v\in\mathbb{R}^n} & \langle b, \lambda\rangle\\
+			s.t.\quad &c-A^T\lambda - v = 0\\
+			& v\geq 0.
+		\end{split}
+	\end{equation*}
+\end{example}
+\begin{note}
+	小结：这玩意就离谱，这老师就离谱.	
+\end{note}
